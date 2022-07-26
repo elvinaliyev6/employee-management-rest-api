@@ -19,10 +19,10 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(length = 20,nullable = false)
+    @Column(length = 20)
     private String name;
 
-    @Column(length = 20,nullable = false)
+    @Column(length = 20)
     private String surname;
 
     private int age;
