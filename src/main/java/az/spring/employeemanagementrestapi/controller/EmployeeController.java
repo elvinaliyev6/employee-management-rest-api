@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/employees")
 @RequiredArgsConstructor
@@ -25,8 +27,8 @@ public class EmployeeController {
     }
 
     @GetMapping("/{id}")
-    public EmployeeDto getEmployee(@PathVariable("id") long id) {
-        return employeeService.getEmployee(id);
+    public EmployeeDto getEmployee(@PathVariable("id") long employeeId) {
+        return employeeService.getEmployee(employeeId);
     }
 
     @GetMapping("/search")
@@ -36,7 +38,7 @@ public class EmployeeController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void insert(@RequestBody EmployeeDto employeeDto) {
+    public void insert(@RequestBody @Valid EmployeeDto employeeDto) {
         employeeService.insert(employeeDto);
     }
 

@@ -2,13 +2,13 @@ package az.spring.employeemanagementrestapi.exception;
 
 import az.spring.employeemanagementrestapi.enums.ErrorCodeEnum;
 
-public class CustomRestException extends RuntimeException{
+public class CustomNotFoundException extends RuntimeException{
 
-    public CustomRestException(String message) {
+    public CustomNotFoundException(String message) {
         super(message);
     }
 
-    public CustomRestException(ErrorCodeEnum errorCodeEnum){
+    public CustomNotFoundException(ErrorCodeEnum errorCodeEnum){
         super(errorCodeEnum.getMessage());
     }
 }

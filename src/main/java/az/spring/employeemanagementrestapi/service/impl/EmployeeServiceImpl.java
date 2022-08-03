@@ -1,7 +1,7 @@
 package az.spring.employeemanagementrestapi.service.impl;
 
 import az.spring.employeemanagementrestapi.enums.ErrorCodeEnum;
-import az.spring.employeemanagementrestapi.exception.CustomRestException;
+import az.spring.employeemanagementrestapi.exception.CustomNotFoundException;
 import az.spring.employeemanagementrestapi.model.Employee;
 import az.spring.employeemanagementrestapi.repository.EmployeeRepository;
 import az.spring.employeemanagementrestapi.rest.model.dto.EmployeeDto;
@@ -29,7 +29,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public EmployeeDto getEmployee(long id) {
-        return employeeRepository.findById(id).map(employee -> convertToDto(employee)).orElseThrow(() -> new CustomRestException(ErrorCodeEnum.EMPLOYEE_NOT_FOUND));
+        return employeeRepository.findById(id).map(employee -> convertToDto(employee)).orElseThrow(() -> new CustomNotFoundException(ErrorCodeEnum.EMPLOYEE_NOT_FOUND));
     }
 
     @Override
@@ -89,7 +89,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     private Employee getEmployeeById(long id) {
-        return employeeRepository.findById(id).orElseThrow(() -> new CustomRestException(ErrorCodeEnum.EMPLOYEE_NOT_FOUND));
+        return employeeRepository.findById(id).orElseThrow(() -> new CustomNotFoundException(ErrorCodeEnum.EMPLOYEE_NOT_FOUND));
     }
 
 
