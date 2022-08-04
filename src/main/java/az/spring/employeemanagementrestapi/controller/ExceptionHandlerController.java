@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @RestControllerAdvice
 public class ExceptionHandlerController {
 
@@ -35,11 +38,13 @@ public class ExceptionHandlerController {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ErrorResponse handleValidiation(MethodArgumentNotValidException e) {
-        StringBuilder paramNames = new StringBuilder();
-        e.getBindingResult().getFieldErrors().forEach(fieldError -> paramNames.append(fieldError.getField()));
+
+        List<String> fieldErrorNamesList=e.getBindingResult().getFieldErrors().stream().map(fieldError ->fieldError.getField())
+                .collect(Collectors.toList());
+
         return ErrorResponse.builder()
                 .code(ErrorCodeEnum.VALIDATION_ERROR.getCode())
-                .message(paramNames + ErrorCodeEnum.VALIDATION_ERROR.getMessage())
+                .message(fieldErrorNamesList + ErrorCodeEnum.VALIDATION_ERROR.getMessage())
                 .build();
     }
 
