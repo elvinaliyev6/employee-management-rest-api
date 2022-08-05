@@ -4,6 +4,7 @@ import az.spring.employeemanagementrestapi.enums.ErrorCodeEnum;
 import az.spring.employeemanagementrestapi.exception.CustomNotFoundException;
 import az.spring.employeemanagementrestapi.rest.model.response.ErrorResponse;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -48,9 +49,19 @@ public class ExceptionHandlerController {
                 .build();
     }
 
+    @ExceptionHandler(AccessDeniedException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ErrorResponse handleAccessDeniedException(AccessDeniedException e){
+        return ErrorResponse.builder()
+                .code(ErrorCodeEnum.ACCESS_DENIED.getCode())
+                .message(ErrorCodeEnum.ACCESS_DENIED.getMessage())
+                .build();
+    }
+
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ErrorResponse handleUnknownException(Exception e) {
+        e.printStackTrace();
         return ErrorResponse.builder()
                 .code(ErrorCodeEnum.UNKNOWN_ERROR.getCode())
                 .message(ErrorCodeEnum.UNKNOWN_ERROR.getMessage())

@@ -4,6 +4,7 @@ public enum ErrorCodeEnum {
 
     EMPLOYEE_NOT_FOUND(1001,"Can not find employee given id"),
     VALIDATION_ERROR(1002," is not valid"),
+    ACCESS_DENIED(1003,"Access is denied"),
     UNKNOWN_ERROR(1000,"Unknown error");
 
 
